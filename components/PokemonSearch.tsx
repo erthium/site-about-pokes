@@ -8,22 +8,22 @@ import { PokeApiService } from '../services/pokeApiService';
 const PokemonSearch: React.FC = () => {
     const [pokemonData, setPokemonData] = useState<PokeDataProps | null>();
     
-    const onIndexChangedEvent = (index: string) => {
+    const onSelectedEvent = (inputText: string) => {
         try{
-            const pokeIndex: number = parseInt(index);
-            console.log(pokeIndex);
-            getPokemonData(pokeIndex);
+            getPokemonData(inputText);
         }
         catch(e){
             console.log(e);
         }
     };
 
-    const getPokemonData = async (index: number) => {
-        const pokeName: string = await PokeApiService.getPokeName(index);
+    const getPokemonData = async (pokeName: string) => {
+        const isNameValid: boolean = await PokeApiService.getIsNameValid(pokeName); 
+        if(isNameValid === false) return;
+        console.log("Getting pokemon data...");
         const pokeImageUrl: string = await PokeApiService.getPokeImage(pokeName);
-        const pokeAbilities: string[] = await PokeApiService.getPokeAbilities(index);
-        const pokeAbilityDefs: string[] = await PokeApiService.getPokeAbilityDefs(index);
+        const pokeAbilities: string[] = await PokeApiService.getPokeAbilities(pokeName);
+        const pokeAbilityDefs: string[] = await PokeApiService.getPokeAbilityDefs(pokeName);
         const pokeData: PokeDataProps = {
             name: pokeName,
             imageUrl: pokeImageUrl,
@@ -35,7 +35,7 @@ const PokemonSearch: React.FC = () => {
 
     return(
         <div>
-            <SearchBar onIndexChange={onIndexChangedEvent} />
+            <SearchBar onSelected={onSelectedEvent} />
             {pokemonData && <PokeData {...pokemonData}/>}
         </div>
     )
