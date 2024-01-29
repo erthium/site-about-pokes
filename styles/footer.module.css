@@ -1,0 +1,54 @@
+.container {
+    background: transparent;
+    padding: 10px;
+    /*
+    this container must be bound to the bottom of the site, no matter how long the page is
+    and should be centered horizontally
+    */
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: grid;
+    
+}
+
+.copyrightText {
+    /*center in the grid*/
+    justify-self: center;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.nintendoFunnyThingy {
+    /*center in the grid*/
+    justify-self: center;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.linkContainer {
+    /*center in the grid*/
+    justify-self: center;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.link {
+    /*center in the grid*/
+    justify-self: center;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: underline;
+}

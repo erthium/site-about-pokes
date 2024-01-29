@@ -41,6 +41,10 @@ const PokemonSearch: React.FC = () => {
         setPokemonData(pokeData);
     }
 
+    useEffect(() => {
+        getPokemonData("pikachu");
+      }, []);
+
     return(
         <div>
             <SearchBar onSelected={onSelectedEvent} />
