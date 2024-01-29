@@ -1,0 +1,56 @@
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+  
+.input {
+    color: white;
+    background: black;
+    /* width will be either fixed to pixels, if it's too less then takes the entire space*/
+    width: calc(min(100%, 400px));
+    height: 40px;
+    padding: 8px;
+    margin-right: 8px; /* Add some spacing between input and suggestions */
+    /* add some black borders and then white borders on the egdes*/
+    border-radius: 4px;
+    border: white 1px solid;
+}
+  
+.suggestionContainer {
+    border: 1px solid #ccc;
+    z-index: 1;
+    flex-direction: column; /* Display suggestions in a column */
+    max-height: 200px; /* Limit the height of the suggestion container */
+    overflow-y: auto; /* Enable vertical scrolling if suggestions exceed max height */
+    width: calc(min(100%, 400px) * 0.8);
+    /*suggestion container will be below the .input*/
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: black;
+    border-radius: 4px;
+}
+  
+.suggestionItem {
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+    background: black;
+    border-bottom: 1px solid #ccc; /* Add a grey bottom border */
+    /*add highlight/hover color*/
+}
+
+.suggestionItem:hover {
+    background-color: #333;
+}
+  
+.suggestionItem:last-child {
+    border-bottom: none; /* Remove the border from the last suggestion */
+}
+  

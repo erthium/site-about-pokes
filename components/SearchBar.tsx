@@ -1,6 +1,8 @@
 // Import necessary dependencies
-import React, { useState, ChangeEvent, KeyboardEvent } from 'react';
+import React, { useState, ChangeEvent, KeyboardEvent, MouseEvent, useRef, useEffect } from 'react';
 import { PokeApiService } from '../services/pokeApiService';
+// styles
+import styles from '../styles/searchbar.module.css';
 
 // Interface for SearchBarProps
 interface SearchBarProps {
@@ -11,6 +13,7 @@ interface SearchBarProps {
 interface SearchBarState {
   inputText: string;
   suggestions: string[];
+  selectedSuggestionIndex: number;
 }
 
 // SearchBar component
@@ -19,8 +22,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelected }) => {
   const [state, setState] = useState<SearchBarState>({
     inputText: '',
     suggestions: [],
+    selectedSuggestionIndex: -1,
   });
 
+  const suggestionsRef = useRef<HTMLDivElement>(null);
 
   const fetchSuggestions = async (input: string): Promise<string[]> => {
     if (input.length <= 0) return [];
@@ -33,40 +38,74 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelected }) => {
     const newInputText = e.target.value;
     // Fetch suggestions based on the input (you need to implement this function)
     const newSuggestions = await fetchSuggestions(newInputText);
-    setState({ inputText: newInputText, suggestions: newSuggestions });
+    setState({ inputText: newInputText, suggestions: newSuggestions, selectedSuggestionIndex: -1});
   };
 
 
   // Function to handle key events (for selecting suggestions)
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      if(state.selectedSuggestionIndex !== -1){
+        onSelected(state.suggestions[state.selectedSuggestionIndex]);
+        setState({ inputText: state.suggestions[state.selectedSuggestionIndex], suggestions: [], selectedSuggestionIndex: -1});
+      }
+      else{
         onSelected(state.inputText);
-    } else if (e.key === 'ArrowDown') {
-      // Handle Arrow Down key press (you might want to highlight/select the next suggestion)
-      // For simplicity, I'm not implementing this in detail
-    } else if (e.key === 'ArrowUp') {
-      // Handle Arrow Up key press (you might want to highlight/select the previous suggestion)
-      // For simplicity, I'm not implementing this in detail
+        setState({ ...state, suggestions: [], selectedSuggestionIndex: -1});
+      }
+    }
+    else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const newIndex = Math.min(state.selectedSuggestionIndex + 1, state.suggestions.length - 1);
+      setState({ ...state, selectedSuggestionIndex: newIndex });
+    }
+    else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const newIndex = Math.max(state.selectedSuggestionIndex - 1, -1);
+      setState({ ...state, selectedSuggestionIndex: newIndex });
     }
   };
 
 
+  const handleSuggestionClick = (index: number) => {
+    onSelected(state.suggestions[index]);
+    setState({ inputText: state.suggestions[index], suggestions: [], selectedSuggestionIndex: -1});
+  };
+
+
+  const handleSuggestionHover = (index: number) => {
+    setState({ ...state, selectedSuggestionIndex: index });
+  };
+
+
   return (
-    <div>
+    <div className={styles.container}>
       <input
+        className={styles.input}
         type="text"
         value={state.inputText}
         placeholder="Enter pokemon name..."
-        style={{ color: 'red' }}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      <div>
-        {/* Suggestions */}
-        {state.suggestions.map((suggestion, index) => (
-          <div key={index}>{suggestion}</div>
-        ))}
-      </div>
+      {state.suggestions.length > 0 && (
+        <div ref={suggestionsRef} className={styles.suggestionContainer}>
+          {/* Suggestions */}
+          {state.suggestions.map((suggestion, index) => (
+            <div
+            className={styles.suggestionItem}
+            key={index}
+            onClick={() => handleSuggestionClick(index)}
+            onMouseEnter={() => handleSuggestionHover(index)}
+            style={{
+              backgroundColor: index === state.selectedSuggestionIndex ? '#333' : 'black',
+            }}
+            >
+              {suggestion}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
