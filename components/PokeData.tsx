@@ -18,9 +18,9 @@ const PokeData: React.FC<PokeDataProps> = ({name, imageUrl, pokeTypes, stats, ab
       <h2 className={styles.pokeName}>{name}</h2>
       <img className={styles.pokeImage} src={imageUrl} alt={name}/>
       <h3 className={styles.title}>Types</h3>
-      <ul className={styles.listContainer}>
+      <ul className={styles.pokeTypeContainer}>
         {pokeTypes.map((type, index) => (
-          <li className={styles.listItem} key={index}>{type}</li>
+          <li className={styles.pokeTypes} key={index}>{type}</li>
         ))}
       </ul>
       <h3 className={styles.title}>Stats</h3>
