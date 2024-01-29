@@ -28,26 +28,46 @@ export class PokeApiService {
         return data === 'true';
     }
 
+
     static getPokeName = async (index: number): Promise<string> => {
         return fetchData('poke', index);
     }
     
+
     static getPokeImage = async (name: string): Promise<string> => {
         name = name.toLowerCase();
-        console.log(name);
         return fetchData('image', name);
     }
     
+
     static getPokeAbilities = async (name: string): Promise<string[]> => {
         return fetchData('poke/abilities', name);
     }
     
+
     static getPokeAbilityDefs = async (name: string): Promise<string[]> => {
-        return fetchData('poke/defs', name);
+        return fetchData('poke/abilities/defs', name);
     }
+
 
     static getPokeSuggestions = async (name: string): Promise<string[]> => {
         return fetchData('poke/suggest', name);
+    }
+
+    static getPokeMoves = async (name: string): Promise<string[]> => {
+        return fetchData('poke/moves', name);
+    }
+
+    static getPokeMoveDefs = async (name: string): Promise<string[]> => {
+        return fetchData('poke/moves/defs', name);
+    }
+
+    static getPokeStats = async (name: string): Promise<string[]> => {
+        return fetchData('poke/stats', name);
+    }
+
+    static getPokeTypes = async (name: string): Promise<string[]> => {
+        return fetchData('poke/types', name);
     }
     
 }
