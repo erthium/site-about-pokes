@@ -72,5 +72,9 @@ export class PokeApiService {
     static getPokeTypes = async (name: string): Promise<string[]> => {
         return fetchData('poke/types', name);
     }
+
+    static getRandomPoke = async (): Promise<string> => {
+        return fetchData('poke/random', '');
+    }
     
 }

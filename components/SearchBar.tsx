@@ -79,6 +79,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelected }) => {
     setState({ ...state, selectedSuggestionIndex: index });
   };
 
+  const handleRandomButtonClick = async (e: MouseEvent<HTMLButtonElement>) => {
+    const randomPokeName = await PokeApiService.getRandomPoke();
+    onSelected(randomPokeName);
+    setState({ inputText: randomPokeName, suggestions: [], selectedSuggestionIndex: -1});
+  }
+
 
   return (
     <div className={styles.container}>
@@ -90,6 +96,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelected }) => {
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
+      <button className={styles.randomButton} onClick={handleRandomButtonClick}>
+        ?
+      </button>
       {state.suggestions.length > 0 && (
         <div ref={suggestionsRef} className={styles.suggestionContainer}>
           {/* Suggestions */}
