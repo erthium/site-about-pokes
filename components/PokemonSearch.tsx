@@ -22,13 +22,21 @@ const PokemonSearch: React.FC = () => {
         if(isNameValid === false) return;
         console.log("Getting pokemon data...");
         const pokeImageUrl: string = await PokeApiService.getPokeImage(pokeName);
+        const pokeTypes: string[] = await PokeApiService.getPokeTypes(pokeName);
+        const pokeStats: string = await PokeApiService.getPokeStats(pokeName);
         const pokeAbilities: string[] = await PokeApiService.getPokeAbilities(pokeName);
         const pokeAbilityDefs: string[] = await PokeApiService.getPokeAbilityDefs(pokeName);
+        const pokeMoves: string[] = await PokeApiService.getPokeMoves(pokeName);
+        const pokeMoveDefs: string[] = await PokeApiService.getPokeMoveDefs(pokeName);
         const pokeData: PokeDataProps = {
             name: pokeName,
             imageUrl: pokeImageUrl,
+            pokeTypes: pokeTypes,
+            stats: pokeStats,
             abilities: pokeAbilities,
-            abilityDefs: pokeAbilityDefs
+            abilityDefs: pokeAbilityDefs,
+            moves: pokeMoves,
+            moveDefs: pokeMoveDefs
         };
         setPokemonData(pokeData);
     }

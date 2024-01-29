@@ -54,17 +54,21 @@ export class PokeApiService {
         return fetchData('poke/suggest', name);
     }
 
+
     static getPokeMoves = async (name: string): Promise<string[]> => {
         return fetchData('poke/moves', name);
     }
+
 
     static getPokeMoveDefs = async (name: string): Promise<string[]> => {
         return fetchData('poke/moves/defs', name);
     }
 
-    static getPokeStats = async (name: string): Promise<string[]> => {
+
+    static getPokeStats = async (name: string): Promise<string> => {
         return fetchData('poke/stats', name);
     }
+
 
     static getPokeTypes = async (name: string): Promise<string[]> => {
         return fetchData('poke/types', name);
