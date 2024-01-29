@@ -50,8 +50,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelected }) => {
         setState({ inputText: state.suggestions[state.selectedSuggestionIndex], suggestions: [], selectedSuggestionIndex: -1});
       }
       else{
-        onSelected(state.inputText);
-        setState({ ...state, suggestions: [], selectedSuggestionIndex: -1});
+        if (state.inputText.length > 0){
+          onSelected(state.inputText);
+          setState({ ...state, suggestions: [], selectedSuggestionIndex: -1});
+        }
       }
     }
     else if (e.key === 'ArrowDown') {
