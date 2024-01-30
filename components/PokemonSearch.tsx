@@ -62,7 +62,11 @@ const PokemonSearch: React.FC = () => {
     return(
         <div>
             <SearchBar onSelected={onSelectedEvent} />
-            {!!(isLoading) && <LoadingScreen/>}
+            {!!(isLoading) && 
+                <div>
+                    <LoadingScreen/>
+                </div>
+            }
             {!!(pokemonData) && 
                 <div style={{ display: isLoading ? 'none' : 'block' }}>
                     <PokeData {...pokemonData}/>

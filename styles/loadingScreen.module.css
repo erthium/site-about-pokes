@@ -3,5 +3,12 @@
     display: grid;
 }
 
-
+.loadingContent {
+    /*center in the grid*/
+    justify-self: center;
+    margin-bottom: 32px;
+    margin-top: 32px;
+    font-size: 32px;
+    font-weight: bold;
+}
 
