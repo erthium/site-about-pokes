@@ -21,6 +21,7 @@ const fetchData = async (endpoing: string, parameter: any) => {
     }
 };
 
+
 export class PokeApiService {
     static getIsNameValid = async (name: string): Promise<boolean> => {
         const data: string = await fetchData('poke/valid', name);
@@ -72,6 +73,7 @@ export class PokeApiService {
     static getPokeTypes = async (name: string): Promise<string[]> => {
         return fetchData('poke/types', name);
     }
+
 
     static getRandomPoke = async (): Promise<string> => {
         return fetchData('poke/random', '');

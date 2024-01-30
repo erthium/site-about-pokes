@@ -13,6 +13,7 @@ export interface PokeDataProps {
 }
 
 const PokeData: React.FC<PokeDataProps> = ({name, imageUrl, pokeTypes, stats, abilities, abilityDefs, moves, moveDefs}) => {
+  name = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
   return (
     <div className={styles.container}>
       <h2 className={styles.pokeName}>{name}</h2>
