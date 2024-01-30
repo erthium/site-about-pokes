@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import PokeData, { PokeDataProps } from './PokeData';
 import LoadingScreen from './LoadingScreen';
+import Pokedex from './Pokedex';
 import { PokeApiService } from '../services/pokeApiService';
 
 const PokemonSearch: React.FC = () => {
@@ -72,6 +73,13 @@ const PokemonSearch: React.FC = () => {
                     <PokeData {...pokemonData}/>
                 </div>
             }
+            {/*
+            {!!(pokemonData) && 
+                <div style={{ display: isLoading ? 'none' : 'block' }}>
+                    <Pokedex pokeName={pokemonData.name}/>
+                </div>
+            }
+            */}
         </div>
     )
 };

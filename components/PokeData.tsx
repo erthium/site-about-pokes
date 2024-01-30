@@ -34,7 +34,7 @@ const PokeData: React.FC<PokeDataProps> = ({name, imageUrl, pokeTypes, stats, ab
       <h3 className={styles.normalText} 
         style={{ display: imageLoadError ? 'block' : 'none' }}>
         Image failed to load.
-      </h3> 
+      </h3>
       <img className={styles.pokeImage} 
         style={{ display: imageLoadError ? 'none' : 'block' }} 
         src={imageUrl} alt={name} 
