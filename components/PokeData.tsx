@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/pokedata.module.css';
 
 export interface PokeDataProps {
@@ -10,14 +10,20 @@ export interface PokeDataProps {
   abilityDefs: string[];
   moves: string[];
   moveDefs: string[];
+  onLoaded: () => void;
 }
 
-const PokeData: React.FC<PokeDataProps> = ({name, imageUrl, pokeTypes, stats, abilities, abilityDefs, moves, moveDefs}) => {
+const PokeData: React.FC<PokeDataProps> = ({name, imageUrl, pokeTypes, stats, abilities, abilityDefs, moves, moveDefs, onLoaded}) => {
+
+  const handleOnLoad = () => {
+    onLoaded();
+  }
+  
   name = name.charAt(0).toUpperCase() + name.toLowerCase().slice(1);
   return (
     <div className={styles.container}>
       <h2 className={styles.pokeName}>{name}</h2>
-      <img className={styles.pokeImage} src={imageUrl} alt={name}/>
+      <img className={styles.pokeImage} src={imageUrl} alt={name} onLoad={handleOnLoad}/>
       <h3 className={styles.title}>Types</h3>
       <ul className={styles.pokeTypeContainer}>
         {pokeTypes.map((type, index) => (

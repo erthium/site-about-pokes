@@ -3,11 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import PokeData, { PokeDataProps } from './PokeData';
+import LoadingScreen from './LoadingScreen';
 import { PokeApiService } from '../services/pokeApiService';
 
 const PokemonSearch: React.FC = () => {
     const [pokemonData, setPokemonData] = useState<PokeDataProps | null>();
-    
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+
     const onSelectedEvent = (inputText: string) => {
         try{
             getPokemonData(inputText);
@@ -17,9 +20,18 @@ const PokemonSearch: React.FC = () => {
         }
     };
 
+    const onPokeDataLoaded = () => {
+        setIsLoading(false);
+    }
+
     const getPokemonData = async (pokeName: string) => {
+        setIsLoading(true);
         const isNameValid: boolean = await PokeApiService.getIsNameValid(pokeName); 
-        if(isNameValid === false) return;
+        if(isNameValid === false){
+            console.log("Invalid pokemon name!");
+            setIsLoading(false);
+            return;
+        }
         console.log("Getting pokemon data...");
         const pokeImageUrl: string = await PokeApiService.getPokeImage(pokeName);
         const pokeTypes: string[] = await PokeApiService.getPokeTypes(pokeName);
@@ -36,9 +48,11 @@ const PokemonSearch: React.FC = () => {
             abilities: pokeAbilities,
             abilityDefs: pokeAbilityDefs,
             moves: pokeMoves,
-            moveDefs: pokeMoveDefs
+            moveDefs: pokeMoveDefs,
+            onLoaded: onPokeDataLoaded
         };
         setPokemonData(pokeData);
+        console.log("Pokemon data retrieved.");
     }
 
     useEffect(() => {
@@ -48,7 +62,12 @@ const PokemonSearch: React.FC = () => {
     return(
         <div>
             <SearchBar onSelected={onSelectedEvent} />
-            {pokemonData && <PokeData {...pokemonData}/>}
+            {!!(isLoading) && <LoadingScreen/>}
+            {!!(pokemonData) && 
+                <div style={{ display: isLoading ? 'none' : 'block' }}>
+                    <PokeData {...pokemonData}/>
+                </div>
+            }
         </div>
     )
 };
