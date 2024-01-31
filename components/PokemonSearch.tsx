@@ -73,13 +73,11 @@ const PokemonSearch: React.FC = () => {
                     <PokeData {...pokemonData}/>
                 </div>
             }
-            {/*
             {!!(pokemonData) && 
                 <div style={{ display: isLoading ? 'none' : 'block' }}>
                     <Pokedex pokeName={pokemonData.name}/>
                 </div>
             }
-            */}
         </div>
     )
 };
