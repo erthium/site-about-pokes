@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://facts-about-pokes.vercel.app/';
 
 const fetchData = async (endpoing: string, parameter: any) => {
     try {
