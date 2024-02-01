@@ -2,7 +2,13 @@ const BASE_URL = 'https://facts-about-pokes.vercel.app/';
 
 const fetchData = async (endpoing: string, parameter: any) => {
     try {
-        const response = await fetch(`${BASE_URL}/${endpoing}/${parameter}`);
+        // add cors header and then fetch
+        const response = await fetch(`${BASE_URL}${endpoing}?name=${parameter}`, {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        });
+        
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
