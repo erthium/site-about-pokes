@@ -2,7 +2,12 @@ const BASE_URL = 'https://facts-about-pokes.vercel.app/';
 
 const fetchData = async (endpoing: string, parameter: any) => {
     try {
-        const response = await fetch(`${BASE_URL}/${endpoing}/${parameter}`);
+        const headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+        };
+        const url = `${BASE_URL}/${endpoing}/${parameter}`;
+        const response = await fetch(url, { headers });
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
