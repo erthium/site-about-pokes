@@ -1,4 +1,4 @@
-const BASE_URL = 'https://facts-about-pokes.vercel.app';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const fetchData = async (endpoing: string, parameter: any) => {
     try {
