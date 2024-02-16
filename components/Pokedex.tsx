@@ -3,13 +3,11 @@ import styles from "../styles/pokedex.module.css";
 import { PokeApiService } from "../services/pokeApiService";
 import { PacmanLoader } from "react-spinners";
 
-// pokedexProps
 interface PokedexProps {
     pokeName: string;
 }
 
 const Pokedex: React.FC<PokedexProps> = ({pokeName}) => {
-  // create a state for the answer of pokedex
   const [answer, setAnswer] = useState<string>("");
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [isRequesting, setIsRequesting] = useState<boolean>(false);
@@ -75,18 +73,14 @@ const Pokedex: React.FC<PokedexProps> = ({pokeName}) => {
   }
 
   useEffect(() => {
-    PokeApiService.testPokedexConnection().then((result) => {
-      console.log(typeof result)
-      console.log(result);
-      if (!result) {
-        console.log("Connection error");
-        onConnectionError();
-        setIsConnected(false);
-      }
-      else {
+    PokeApiService.testPokedexConnection()
+    .then((result) => {
         console.log("Connection successful");
         setIsConnected(true);
-      }
+    }).catch((e) => {
+      console.log("Connection error");
+      onConnectionError();
+      setIsConnected(false);
     });
   }, []);
 
