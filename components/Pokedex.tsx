@@ -77,6 +77,7 @@ const Pokedex: React.FC<PokedexProps> = ({pokeName}) => {
   useEffect(() => {
     PokeApiService.testPokedexConnection().then((result) => {
       console.log(typeof result)
+      console.log(result);
       if (!result) {
         console.log("Connection error");
         onConnectionError();
@@ -107,7 +108,7 @@ const Pokedex: React.FC<PokedexProps> = ({pokeName}) => {
       </div>
       <div className={styles.answerBlock}>
         {isRequesting
-          ? <PacmanLoader color={"#FFCB05"} loading={isRequesting} size={20} />
+          ? <PacmanLoader color={"#555"} size={20} className={styles.answerLoading}/>
           : 
           <p className={styles.asnwerParagraph}>
             {answer}
