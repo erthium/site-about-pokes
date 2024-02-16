@@ -25,6 +25,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelected }) => {
     selectedSuggestionIndex: -1,
   });
 
+  const inputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
   const fetchSuggestions = async (input: string): Promise<string[]> => {
@@ -48,6 +49,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelected }) => {
       if(state.selectedSuggestionIndex !== -1){
         onSelected(state.suggestions[state.selectedSuggestionIndex]);
         setState({ inputText: state.suggestions[state.selectedSuggestionIndex], suggestions: [], selectedSuggestionIndex: -1});
+        // set the value of the input to the selected suggestion
+        if (inputRef.current) {
+          inputRef.current.value = state.suggestions[state.selectedSuggestionIndex];
+        }
       }
       else{
         if (state.inputText.length > 0){
@@ -89,9 +94,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSelected }) => {
   return (
     <div className={styles.container}>
       <input
+        ref={inputRef}
         className={styles.input}
         type="text"
-        value={state.inputText}
         placeholder="Enter pokemon name..."
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
