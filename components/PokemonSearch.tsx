@@ -23,16 +23,15 @@ const PokemonSearch: React.FC = () => {
 
     const onPokeDataLoaded = () => {
         setIsLoading(false);
-    }
+    };
 
     const getPokemonData = async (pokeName: string) => {
-        setIsLoading(true);
         const isNameValid: boolean = await PokeApiService.getIsNameValid(pokeName); 
         if(isNameValid === false){
             console.log("Invalid pokemon name!");
-            setIsLoading(false);
             return;
         }
+        setIsLoading(true);
         console.log("Getting pokemon data...");
         const pokeImageUrl: string = await PokeApiService.getPokeImage(pokeName);
         const pokeTypes: string[] = await PokeApiService.getPokeTypes(pokeName);
@@ -50,11 +49,11 @@ const PokemonSearch: React.FC = () => {
             abilityDefs: pokeAbilityDefs,
             moves: pokeMoves,
             moveDefs: pokeMoveDefs,
-            onLoaded: onPokeDataLoaded
+            onLoaded: onPokeDataLoaded,
         };
         setPokemonData(pokeData);
         console.log("Pokemon data retrieved.");
-    }
+    };
 
     useEffect(() => {
         getPokemonData("pikachu");

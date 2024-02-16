@@ -83,5 +83,31 @@ export class PokeApiService {
     static getRandomPoke = async (): Promise<string> => {
         return fetchData('poke/random', '');
     }
+
+
+    static testPokedexConnection = async (): Promise<boolean> => {
+        const response = await fetchData('pokedex/test', '');
+        return response === 'true';
+    }
+
+
+    static askAboutPoke = async (name: string): Promise<string> => {
+        return fetchData('pokedex/ask', `${name}/about`);
+    }
+
+
+    static askAboutWeaknesses = async (name: string): Promise<string> => {
+        return fetchData('pokedex/ask', `${name}/weaknesses`);
+    }
+
+
+    static askAboutStrengths = async (name: string): Promise<string> => {
+        return fetchData('pokedex/ask', `${name}/strengths`);
+    }
+
     
+    static generateImage = async (name: string): Promise<string> => {
+        console.log('Generating image...');
+        return fetchData('image/generate', name);
+    }
 }
