@@ -73,15 +73,18 @@ const Pokedex: React.FC<PokedexProps> = ({pokeName}) => {
   }
 
   useEffect(() => {
-    PokeApiService.testPokedexConnection()
-    .then((result) => {
-        console.log("Connection successful");
-        setIsConnected(true);
-    }).catch((e) => {
-      console.log("Connection error");
+    try {
+      PokeApiService.testPokedexConnection()
+      .then((result) => {
+          console.log("Connection successful");
+          setIsConnected(true);
+      })
+    }
+    catch(e){
+      console.log(e);
       onConnectionError();
       setIsConnected(false);
-    });
+    }
   }, []);
 
 
